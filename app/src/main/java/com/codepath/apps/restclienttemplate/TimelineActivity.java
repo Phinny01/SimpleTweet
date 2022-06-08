@@ -1,6 +1,7 @@
  package com.codepath.apps.restclienttemplate;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,17 +28,17 @@ import java.util.List;
 import okhttp3.Headers;
 
  public class TimelineActivity extends AppCompatActivity {
+
+     public final int REQUEST_CODE = 20;
      public static final String TAG = "TimelineActivity";
     TwitterClient client;
     RecyclerView rvTweets;
     List<Tweet> tweets;
     TweetsAdapter adapter;
     Button logoutButton;
-
      void onLogoutButton() {
          // forget who's logged in
          TwitterApp.getRestClient(this).clearAccessToken();
-
          // navigate backwards to Login screen
          Intent i = new Intent(this, LoginActivity.class);
          i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this makes sure the Back button won't work
@@ -51,24 +53,26 @@ import okhttp3.Headers;
 
      @Override
      public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-         if (item.getItemId() == R.id.compose){
+         if (item.getItemId() == R.id.compose) {
 
              Intent intent = new Intent(this, ComposeActivity.class);
-             startActivity(intent);
+             startActivityForResult(intent, REQUEST_CODE);
              return true;
-
-
-             }
+         }
          return super.onOptionsItemSelected(item);
 
+     }
+     @Override
+     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK){
+            Tweet tweet =  Parcels.unwrap(data.getParcelableExtra("tweet"));
+            tweets.add(0, tweet);
+            adapter.notifyItemInserted(0 );
+            rvTweets.smoothScrollToPosition(0);
+
          }
-
-
-
-
-
-
-
+         super.onActivityResult(requestCode, resultCode, data);
+     }
      @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +89,6 @@ import okhttp3.Headers;
                 onLogoutButton();
             }
         });
-
         rvTweets =findViewById(R.id.rvTweets);
         tweets = new ArrayList<>();
         adapter = new TweetsAdapter(this, tweets);
@@ -94,8 +97,6 @@ import okhttp3.Headers;
         rvTweets.setAdapter(adapter);
 
     }
-
-
     private void populateHomeTimeline() {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
@@ -110,11 +111,9 @@ import okhttp3.Headers;
 
                 }
             }
-
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.e(TAG, "OnFailure! ", throwable);
-
             }
         });
     }

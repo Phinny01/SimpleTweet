@@ -14,7 +14,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp" />
-
     <Button
         android:id="@+id/LogoutButton"
         android:layout_width="wrap_content"
