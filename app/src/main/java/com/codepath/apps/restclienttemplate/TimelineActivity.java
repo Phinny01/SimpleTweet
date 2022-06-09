@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,8 +23,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.parceler.Parcels;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.Headers;
 
@@ -36,6 +40,7 @@ import okhttp3.Headers;
     List<Tweet> tweets;
     TweetsAdapter adapter;
     Button logoutButton;
+    private SwipeRefreshLayout swipeContainer;
      void onLogoutButton() {
          // forget who's logged in
          TwitterApp.getRestClient(this).clearAccessToken();
@@ -49,6 +54,7 @@ import okhttp3.Headers;
      public boolean onCreateOptionsMenu(Menu menu) {
          getMenuInflater().inflate(R.menu.menu_main, menu);
          return super.onCreateOptionsMenu(menu);
+
      }
 
      @Override
@@ -78,6 +84,24 @@ import okhttp3.Headers;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
+
+         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+         // Setup refresh listener which triggers new data loading
+         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+             @Override
+             public void onRefresh() {
+                 // Your code to refresh the list here.
+                 // Make sure you call swipeContainer.setRefreshing(false)
+                 // once the network request has completed successfully.
+                 fetchTimelineAsync(0);
+             }
+         });
+         // Configure the refreshing colors
+         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                 android.R.color.holo_green_light,
+                 android.R.color.holo_orange_light,
+                 android.R.color.holo_red_light);
+
         client = TwitterApp.getRestClient(this);
         populateHomeTimeline();
 
@@ -97,7 +121,14 @@ import okhttp3.Headers;
         rvTweets.setAdapter(adapter);
 
     }
-    private void populateHomeTimeline() {
+
+     private void fetchTimelineAsync(int i) {
+         adapter.clear();
+         populateHomeTimeline();
+         swipeContainer.setRefreshing(false);
+     }
+
+     private void populateHomeTimeline() {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {

@@ -25,6 +25,13 @@
         android:layout_marginTop="0dp"
         android:layout_toRightOf="@+id/ivProfileImage"
         android:text="Phinny01" />
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/tvUsername"-->
+<!--        android:layout_marginStart="2dp"-->
+<!--        android:layout_toRightOf="@id/tvScreenName"-->
+<!--        android:text="TextView"/>-->
 
     <TextView
         android:id="@+id/tvBody"
@@ -35,5 +42,27 @@
         android:layout_marginTop="2dp"
         android:layout_toRightOf="@+id/ivProfileImage"
         android:text="This is my tweet!!!" />
+
+    <ImageView
+        android:id="@+id/ivTweetImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_alignStart="@+id/tvBody"
+        android:layout_alignEnd="@+id/tvBody"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvTimeStamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tvBody"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@id/tvScreenName"
+        android:text="TextView" />
+
 
 </RelativeLayout>
