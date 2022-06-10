@@ -20,8 +20,9 @@ public class Tweet {
     public String createdAT;
     public User user;
     public String imageUrl;
-    public String username;
     public String timeStamp;
+    public String username;
+
 
     public Tweet() { }
 
@@ -31,7 +32,7 @@ public class Tweet {
         tweet.createdAT = jsonObject.getString("created_at");
         tweet.timeStamp = tweet.getRelativeTimeAgo(tweet.createdAT);
         tweet.user = User. fromjson(jsonObject.getJSONObject("user")) ;
-//        tweet.username = jsonObject.getString("username");
+        
 
         tweet.imageUrl = "";
         if  (jsonObject.has("full_text")){
@@ -41,13 +42,7 @@ public class Tweet {
             tweet.body = jsonObject.getString("text");
         }
         tweet.imageUrl=getEntity(jsonObject.getJSONObject("entities"));
-// if the tweet has an image we want to grab the imageUrl for that image
-                /*if (jsonObject.getJSONObject("entities").has("media")){
-                    JSONArray media = jsonObject.getJSONObject("entities").getJSONArray("media");
-                    if (media.length() > 0){
-                        tweet.imageUrl = media.getJSONObject(0).getString("media_url").toString();
-                    }
-                }*/
+//
                 return tweet;
     }
 
