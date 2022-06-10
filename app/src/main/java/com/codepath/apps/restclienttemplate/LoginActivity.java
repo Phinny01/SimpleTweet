@@ -17,15 +17,15 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-
 		final SampleModel sampleModel = new SampleModel();
 		sampleModel.setName("CodePath");
-
 		sampleModelDao = ((TwitterApp) getApplicationContext()).getMyDatabase().sampleModelDao();
 
 		AsyncTask.execute(new Runnable() {
+
 			@Override
 			public void run() {
 				sampleModelDao.insertModel(sampleModel);
@@ -35,6 +35,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	// Inflate the menu; this adds items to the action bar if it is present.
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
 	}
@@ -42,9 +43,10 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	// i.e Display application "homepage"
 	@Override
 	public void onLoginSuccess() {
-		Log.i("sssssss", "login success");
-		 Intent i = new Intent(this, TimelineActivity .class);
-		 startActivity(i);
+
+		Log.i("", "login success");
+		Intent i = new Intent(this, TimelineActivity.class);
+		startActivity(i);
 	}
 	// OAuth authentication flow failed, handle the error
 	// i.e Display an error dialog or toast

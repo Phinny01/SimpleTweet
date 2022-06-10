@@ -7,12 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".ComposeActivity">
     <com.google.android.material.textfield.TextInputLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:counterEnabled="true"
-        app:counterMaxLength="280">
+        app:counterMaxLength="280"
+        >
 
         <EditText
+
             android:id="@+id/etCompose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,19 +25,25 @@
             android:gravity="start|top"
             android:hint="What's happening?"
             android:inputType="textMultiLine"
-            android:minLines="5" />
+            android:minLines="5"
+            tools:ignore="SpeakableTextPresentCheck"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+
         android:id="@+id/btnTweet"
-        android:layout_width="wrap_content"
+        android:layout_width="133dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="7dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginRight="21dp"
-        android:layout_marginBottom="511dp"
-        android:text="TWEET" />
-
+        android:layout_marginRight="271dp"
+        android:layout_marginBottom="451dp"
+        android:background="#03A9F4"
+        android:text="TWEET"
+        android:textColorHighlight="#009688" />
 
 </RelativeLayout>

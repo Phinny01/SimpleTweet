@@ -25,20 +25,21 @@ public class ComposeActivity extends AppCompatActivity {
     Button btnTweet;
     TwitterClient client;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
-
         client = TwitterApp.getRestClient(this);
-
         etCompose =findViewById(R.id.etCompose);
-
         btnTweet = findViewById(R.id.btnTweet);
-
         btnTweet.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View view) {
+
                 String tweetContent = etCompose.getText().toString();
                 if (tweetContent.isEmpty()){
                     Toast.makeText(ComposeActivity.this,"Sorry, your tweet cannot be empty ", Toast.LENGTH_LONG).show();
@@ -55,6 +56,7 @@ public class ComposeActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(int statusCode, Headers headers, JSON json) {
+
                         Log.i (TAG, "onSuccess to publish tweet");
                         try {
                             Tweet tweet = Tweet.fromJson(json.jsonObject);
@@ -63,14 +65,15 @@ public class ComposeActivity extends AppCompatActivity {
                             intent.putExtra("tweet", Parcels.wrap(tweet));
                             setResult(RESULT_OK, intent);
                             finish();
-
-                        } catch (JSONException e) {
+                        }
+                        catch (JSONException e) {
 
                         }
                     }
 
                     @Override
                     public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+
                         Log.e(TAG, "onFailure to publish tweet", throwable);
                     }
                 });
