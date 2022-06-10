@@ -67,6 +67,7 @@ public class ComposeActivity extends AppCompatActivity {
                             finish();
                         }
                         catch (JSONException e) {
+                            Log.e(TAG, "Tweet failed");
 
                         }
                     }

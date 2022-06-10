@@ -23,7 +23,7 @@
             android:layout_marginTop="5dp"
             android:ems="10"
             android:gravity="start|top"
-            android:hint="What's happening?"
+            android:hint="@string/attention_getter"
             android:inputType="textMultiLine"
             android:minLines="5"
             tools:ignore="SpeakableTextPresentCheck"
