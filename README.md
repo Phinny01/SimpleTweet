@@ -48,7 +48,8 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img [src='http://i.imgur.com/link/to/your/gif/file.gif' ](https://user-images.githubusercontent.com/104809511/173165184-2ef79952-2812-4581-a2c8-b0f3e481035e.mp4
+)title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [Kap](https://getkap.co/).
 
@@ -61,6 +62,9 @@ Describe any challenges encountered while building the app.
 
 * [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
 * [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android
+
+
+
 
 ## License
 
